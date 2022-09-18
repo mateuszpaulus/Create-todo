@@ -10,7 +10,6 @@
     <v-app-bar
       app
       dark
-      
       elevate-on-scroll
     >
       <v-app-bar-nav-icon @click="drawer = !drawer" />
