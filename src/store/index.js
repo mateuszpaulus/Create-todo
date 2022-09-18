@@ -3,19 +3,35 @@ import Vuex from 'vuex'
 import axios from 'axios'
 Vue.use(Vuex)
 
-const resource_url = "https://jsonplaceholder.typicode.com/todos/";
+const apiJson = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com',
+  withCredentials: false,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  }
+})
 
 export default new Vuex.Store({
   state: {
     tasks: [],
+    searchTodos: null,
   },
   getters: {
+    todosFilter(state) {
+      if (!state.searchTodos) {
+        return state.tasks
+      }
+      return state.tasks.filter(task =>
+        task.title.toLowerCase().includes(state.searchTodos.toLowerCase())
+      )
+    }
   },
   mutations: {
-    GET_TASKS (state, tasks) {
+    SET_TASKS (state, tasks) {
       state.tasks = tasks
     },
-    NEW_TASK (state, newTask) {
+    ADD_TASK (state, newTask) {
       state.tasks = [newTask, ...state.tasks]
     },
     COMPLETED_TASK(state, id) {
@@ -29,73 +45,64 @@ export default new Vuex.Store({
       let task = state.tasks.filter(task => task.id === updateTask.id)[0]
       task.title = updateTask.title
     },
+    SEARCH_TODOS(state, value) {
+      state.searchTodos = value
+    },
   },
   actions: {
     async getTasks ({ commit }) {
-      try {
-        const response = await axios.get(resource_url);
-        commit('GET_TASKS', response.data.slice(0,10));
-        console.log(response.data)
-      }
-      catch (error) {
-        alert(error)
-        console.log(error)
-      } 
+      await apiJson.get('/todos')
+        .then(response => {
+          commit('SET_TASKS', response.data)
+          console.log(response.data)
+        })
+        .catch(error => {
+          alert(error)
+        })
     },
-    async addTask ({ commit }, newTaskTitle) {
-      let newTask = {
-        userId: 1,
-        id: Date.now(),
-        title: newTaskTitle,
-        completed: false,
-      }
-      try {
-        const response = await axios.post(resource_url, newTask);
-        console.log(newTask)
-        commit('NEW_TASK', response.data)
-      }
-      catch (error) {
-        alert(error)
-        console.log(error)
-      } 
+    async createTask ({ commit }, newTask) {
+      await apiJson.post('/todos', newTask)
+        .then(() => {
+          commit('ADD_TASK', newTask)
+        })
+        .catch(error => {
+          throw(error)
+        })
     },
     async completedTask ({state, commit}, id) {
       let task = state.tasks.filter(task => task.id === id)[0]
-      try {
-        const response = await axios.patch(`${resource_url}${id}`, {
-          completed: !task.completed
-        });
-        commit('COMPLETED_TASK', id);
-        console.log(response.data)
-      }
-      catch (error) {
-        alert(error)
-        console.log(error)
-      }
+      await apiJson.patch(`/todos/${id}`, {
+        completed: !task.completed
+      })
+        .then(() => {
+          commit('COMPLETED_TASK', id)
+          console.log('id', id, 'completed', task.completed)
+        })
+        .catch(error => {
+          alert(error)
+        })
     },
     async removeTask ({ commit }, id) {
-      try {
-        const response = await axios.delete(`${resource_url}${id}`);
-        commit('REMOVE_TASK', id);
-        console.log(response.data)
-      }
-      catch (error) {
-        alert(error)
-        console.log(error)
-      } 
+      await apiJson.delete(`/todos/${id}`)
+        .then(() => {
+          commit('REMOVE_TASK', id)
+          console.log(id)
+        })
+        .catch(error => {
+          alert(error)
+        })
     },
     async updateTask ({ commit }, updateTask) {
-      try {
-        const response = await axios.put(`${resource_url}${updateTask.id}`, {
-          title: updateTask.title
-        });
-        commit('UPDATE_TASK', updateTask);
-        console.log( updateTask)
-      }
-      catch (error) {
-        alert(error)
-        console.log(error)
-      } 
+      await apiJson.patch(`/todos/${updateTask.id}`, {
+        title: updateTask.title
+      })
+        .then(() => {
+          commit('UPDATE_TASK', updateTask)
+          console.log(updateTask)
+        })
+        .catch(error => {
+          alert(error)
+        })
     },
   },
   modules: {
