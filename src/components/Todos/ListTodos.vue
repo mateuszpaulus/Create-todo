@@ -4,18 +4,25 @@
       multiple
       flat
     >
-      <SingleTodo
-        v-for="task in tasks"
-        :key="task.id"
-        :task="task"
-      />
+      <draggable
+        :list="tasks"
+        handle=".handle"
+      >
+        <SingleTodo
+          v-for="task in tasks"
+          :key="task.id"
+          :task="task"
+        />
+      </draggable>
     </v-list-item-group>
   </v-list>
 </template>
 <script>
-export default {
+  import draggable from "vuedraggable";
+export default {  
   components: {
     SingleTodo: () => import('@/components/Todos/SingleTodo.vue'),
+    draggable
   },
   computed: {
     tasks() {

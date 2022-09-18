@@ -20,20 +20,30 @@
         <v-list-item-action>
           <v-btn
             icon
-            @click.stop="dialogDeleteTask"
+            @click.stop="dialogEditTask"
           >
             <v-icon color="grey lighten-1">
-              mdi-delete-outline
+              mdi-pencil-outline
             </v-icon>
           </v-btn>
         </v-list-item-action>
         <v-list-item-action>
           <v-btn
             icon
-            @click.stop="dialogEditTask"
+            class="handle"
           >
             <v-icon color="grey lighten-1">
-              mdi-pencil-outline
+              mdi-drag-horizontal
+            </v-icon>
+          </v-btn>
+        </v-list-item-action>
+        <v-list-item-action class="ml-0">
+          <v-btn
+            icon
+            @click.stop="dialogDeleteTask"
+          >
+            <v-icon color="grey lighten-1">
+              mdi-delete-outline
             </v-icon>
           </v-btn>
         </v-list-item-action>
@@ -84,3 +94,11 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+  .sortable-ghost {
+    opacity: 0
+  } 
+  .sortable-drag {
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+</style>
