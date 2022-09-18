@@ -54,8 +54,8 @@
 <script>
 export default {
   components: {
-    DialogDelete: () => import('@/components/Todos/DialogDelete.vue'),
-    DialogEdit: () => import('@/components/Todos/DialogEdit.vue'),
+    DialogDelete: () => import('@/components/Dialog/DialogDelete.vue'),
+    DialogEdit: () => import('@/components/Dialog/DialogEdit.vue'),
   },
   props: {
     task: {

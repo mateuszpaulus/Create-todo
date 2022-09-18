@@ -1,6 +1,5 @@
 <template>
   <v-card
-    
     class="elevation-0 d-flex justify-center"
   >
     <div class="mt-16">
