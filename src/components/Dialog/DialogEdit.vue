@@ -9,7 +9,7 @@
         <v-card-title class="text-h5">
           Edit task ?
         </v-card-title>
-        <v-card-text>Task will be edit !</v-card-text>
+        <v-card-text>Task will be edited !</v-card-text>
         <v-card-actions class="d-block justify-center">
           <v-text-field
             id="id"

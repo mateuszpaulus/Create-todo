@@ -5,7 +5,7 @@
     flat
   >
     <v-card-title class="justify-center py-0">
-      <strong class="subheading">Discover our plans on the social network</strong>
+      <strong class="subheading">Discover our plans on the social media</strong>
     </v-card-title>
     <v-card-text class="text-center">
       Get to know us

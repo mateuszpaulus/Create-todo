@@ -9,7 +9,7 @@
         <v-card-title class="text-h5">
           Delete task ?
         </v-card-title>
-        <v-card-text>Task will be remove !</v-card-text>
+        <v-card-text>Task will be removed !</v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn

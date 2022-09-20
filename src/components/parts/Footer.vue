@@ -5,7 +5,6 @@
     flat
   >
     <v-card-title class="justify-center py-0">
-      <strong class="subheading">Check us on social networks!</strong>
       <v-card-actions>
         <v-btn
           v-for="item in items"
@@ -22,7 +21,7 @@
       </v-card-actions>
     </v-card-title>
     <v-card-text class=" white--text text-center">
-      {{ new Date().getFullYear() }} — <strong>Amazing Todo App</strong>
+      {{ new Date().getFullYear() }} — <strong>Todo App</strong>
     </v-card-text>
   </v-card>
 </template>

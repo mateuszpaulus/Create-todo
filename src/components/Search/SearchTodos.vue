@@ -38,14 +38,14 @@ export default {
   }
 }
 </script>
-<style lang="sass">
+<style lang="sass" scoped>
   .input-search
     .v-input__slot
       cursor: pointer !important
       &:before, &:after
         border-color: transparent !important
     &.closed
-      max-width: 45px
+      max-width: 40px
       .v-input__slot
         background: transparent !important
 </style>
