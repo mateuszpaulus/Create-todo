@@ -39,7 +39,6 @@ export default {
           title: this.newTaskTitle,
           completed: false,
         }
-        console.log(newTask)
         this.$store.dispatch('createTask', newTask)
         this.newTaskTitle = ''
       }

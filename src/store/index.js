@@ -53,7 +53,7 @@ export default new Vuex.Store({
     async getTasks ({ commit }) {
       await apiJson.get('/todos')
         .then(response => {
-          commit('SET_TASKS', response.data)
+          commit('SET_TASKS', response.data.slice(0,20))
           console.log(response.data)
         })
         .catch(error => {
@@ -62,8 +62,9 @@ export default new Vuex.Store({
     },
     async createTask ({ commit }, newTask) {
       await apiJson.post('/todos', newTask)
-        .then(() => {
+        .then(response => {
           commit('ADD_TASK', newTask)
+          console.log('Post newTask', response.data)
         })
         .catch(error => {
           throw(error)
@@ -74,9 +75,9 @@ export default new Vuex.Store({
       await apiJson.patch(`/todos/${id}`, {
         completed: !task.completed
       })
-        .then(() => {
+        .then(response => {
           commit('COMPLETED_TASK', id)
-          console.log('id', id, 'completed', task.completed)
+          console.log('Patch completedTask', response.data)
         })
         .catch(error => {
           alert(error)
@@ -84,9 +85,9 @@ export default new Vuex.Store({
     },
     async removeTask ({ commit }, id) {
       await apiJson.delete(`/todos/${id}`)
-        .then(() => {
+        .then(response => {
           commit('REMOVE_TASK', id)
-          console.log(id)
+          console.log('Delete removeTask', response.data)
         })
         .catch(error => {
           alert(error)
@@ -96,9 +97,9 @@ export default new Vuex.Store({
       await apiJson.patch(`/todos/${updateTask.id}`, {
         title: updateTask.title
       })
-        .then(() => {
+        .then(response => {
           commit('UPDATE_TASK', updateTask)
-          console.log(updateTask)
+          console.log('Patch updateTask', response.data)
         })
         .catch(error => {
           alert(error)
