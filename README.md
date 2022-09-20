@@ -1,5 +1,7 @@
 # create-todo
 
+Check it: https://todos-jsonplaceholder.netlify.app/#/
+
 ## Project setup
 ```
 yarn install
